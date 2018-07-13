@@ -82,12 +82,6 @@ class EarningsService(Requester, Logger, Configer):
             data_to_redis[idi] = {"downloads": dls, "earnings": erns}
         self.post_to_redis(data_to_redis)
 
-    def post_to_slack(self, idi, new_dls, new_erns):
-        pass
-
-    def post_to_psql(self, idi, new_dls, new_erns):
-        pass
-
     def post_to_redis(self, data):
         pass
 

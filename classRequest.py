@@ -53,3 +53,9 @@ class Requester:
         # TODO need test...
         url = "http://127.0.0.1:8001/data/psql/earnings"
         requests.post(url, data=body)
+
+    def post_to_slack(self, idi, new_dls, new_erns):
+        pass
+
+    def post_to_psql(self, idi, new_dls, new_erns):
+        pass

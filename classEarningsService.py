@@ -53,7 +53,7 @@ class EarningsService(Requester, Logger, Configer):
                 except():
                     print("error in request")
             self.processing_dataframe(new_idi, new_erns, new_dls, curr_data)
-                    # self.to_logger("error in request")
+            # self.to_logger("error in request")
 
     @staticmethod
     def get_new_data(df, category):
@@ -63,22 +63,32 @@ class EarningsService(Requester, Logger, Configer):
         list_ernings = df[df.columns[2]].tolist()  # Earnings
         list_downloads = df[df.columns[3]].tolist()  # Downloads
         return list_id, list_ernings, list_downloads
-        # for idi, download in zip(list_id, list_downloads):
-        #     print(idi, download)
-        # country, city = self.get_location(idi)
-        # self.post(idi, download,  country, city, category)
 
     def processing_dataframe(self, list_idi, list_erns, list_dls, curr_data):
+        data_to_redis = {}
         for idi, erns, dls in zip(list_idi, list_erns, list_dls):
             if idi not in curr_data:
-                self.data_preparing(idi, dls)
+                self.post_to_slack(idi, dls, erns)
+                self.post_to_psql(idi, dls, erns)
             else:
-                curr_dls = curr_data.get(idi)
+                curr_dls = curr_data.get(idi).get('downloads')
                 if dls != curr_dls:
-                    curr_erns = curr_data.get(idi)
+                    curr_erns = curr_data.get(idi).get('earnings')
                     new_dls = dls - curr_dls
                     new_erns = erns - curr_erns
-                    self.data_preparing(idi, dls)
+                    self.post_to_slack(idi, new_dls, new_erns)
+                    self.post_to_psql(idi, dls, erns)
 
-    def data_preparing(self, idi, dls):
+            data_to_redis[idi] = {"downloads": dls, "earnings": erns}
+        self.post_to_redis(data_to_redis)
+
+    def post_to_slack(self, idi, new_dls, new_erns):
         pass
+
+    def post_to_psql(self, idi, new_dls, new_erns):
+        pass
+
+    def post_to_redis(self, data):
+        pass
+
+

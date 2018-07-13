@@ -4,6 +4,7 @@ from classConfiger import Configer
 import pandas as pd
 import json
 from datetime import datetime
+import itertools
 
 
 class EarningsService(Requester, Logger, Configer):
@@ -13,7 +14,7 @@ class EarningsService(Requester, Logger, Configer):
         Logger.__init__(self, self.config.get('service'), log_path)
         self.curr_date = datetime.now().strftime('%Y-%m-%d')
         self.map = ""
-        self.ids_from_redis = ""
+        self.data_from_redis = {}
         self.map_url = self.config.get('map_url')
         self.categories = self.config.get('categories')
         self.base_url = self.config.get('base_url')
@@ -21,6 +22,10 @@ class EarningsService(Requester, Logger, Configer):
     def get(self):
         print(self.categories)
         for category_base, category_name in self.categories.items():
+            curr_data = self.data_from_redis.get(category_base)
+            new_idi = []
+            new_erns = []
+            new_dls = []
             page = 1
             while True:
                 tmp_url = self.base_url.format(str(page), self.curr_date, category_base)
@@ -37,21 +42,43 @@ class EarningsService(Requester, Logger, Configer):
                     page += 1
                     try:
                         df = pd.read_html(r.content)
-                        self.processing_dataframe(df, category_name)
+                        list_id, list_ernings, list_downloads = self.get_new_data(df, category_name)
+                        new_idi = list(itertools.chain(new_idi, list_id))
+                        new_erns = list(itertools.chain(new_erns, list_ernings))
+                        new_dls = list(itertools.chain(new_dls, list_ernings))
                     except ValueError:
                         # self.to_logger(ValueError)
                         print(ValueError)
                         break
                 except():
                     print("error in request")
+            self.processing_dataframe(new_idi, new_erns, new_dls, curr_data)
                     # self.to_logger("error in request")
 
-    def processing_dataframe(self, df, category):
+    @staticmethod
+    def get_new_data(df, category):
         print(category)
         df = df[0]
         list_id = df[df.columns[1]].tolist()  # ID
+        list_ernings = df[df.columns[2]].tolist()  # Earnings
         list_downloads = df[df.columns[3]].tolist()  # Downloads
-        for idi, download in zip(list_id, list_downloads):
-            print(idi, download)
-            # country, city = self.get_location(idi)
-            # self.post(idi, download,  country, city, category)
+        return list_id, list_ernings, list_downloads
+        # for idi, download in zip(list_id, list_downloads):
+        #     print(idi, download)
+        # country, city = self.get_location(idi)
+        # self.post(idi, download,  country, city, category)
+
+    def processing_dataframe(self, list_idi, list_erns, list_dls, curr_data):
+        for idi, erns, dls in zip(list_idi, list_erns, list_dls):
+            if idi not in curr_data:
+                self.data_preparing(idi, dls)
+            else:
+                curr_dls = curr_data.get(idi)
+                if dls != curr_dls:
+                    curr_erns = curr_data.get(idi)
+                    new_dls = dls - curr_dls
+                    new_erns = erns - curr_erns
+                    self.data_preparing(idi, dls)
+
+    def data_preparing(self, idi, dls):
+        pass

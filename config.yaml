@@ -1,14 +1,10 @@
 service: earnings-service
 
-urls:
-  - https://submit.shutterstock.com/earnings/daily?page={}&date={}&language=en&category=25_a_day&sort=desc&sorted_by=count&per_page=20
-  - https://submit.shutterstock.com/earnings/daily?page={}&date={}&language=en&category=on_demand&sort=desc&sorted_by=count&per_page=20
-  - https://submit.shutterstock.com/earnings/daily?page={}&date={}&language=en&category=enhanced&sort=desc&sorted_by=count&per_page=20
-  - https://submit.shutterstock.com/earnings/daily?page={}&date={}&language=en&category=single_image_and_other&sort=desc&sorted_by=count&per_page=20
+base_url: https://submit.shutterstock.com/earnings/daily?page={}&date={}&language=en&category={}&sort=desc&sorted_by=count&per_page=20
 
-url_map: https://submit.shutterstock.com/api/user/downloads/map
+map_url: https://submit.shutterstock.com/api/user/downloads/map
 
-categorys:
+categories:
   25_a_day: subscription
   on_demand: onDemand
   enhanced: enhanced

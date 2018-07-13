@@ -3,12 +3,12 @@ import logging
 
 
 class Logger:
-    def __init__(self, source):
-        self.logger = self.logger_init(source)
+    def __init__(self, source, log_path):
+        self.logger = self.logger_init(source, log_path)
 
     @staticmethod
-    def logger_init(source):
-        logger_file = "app_logs/{}_{}.log".format(source, datetime.datetime.now().strftime("%Y-%m-%d"))
+    def logger_init(source, log_path):
+        logger_file = "{}/{}.log".format(log_path, source)
         logger = logging.getLogger()
         logger.setLevel(logging.INFO)
         file_handler = logging.FileHandler(logger_file)

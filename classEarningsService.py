@@ -10,7 +10,7 @@ import itertools
 class EarningsService(Requester, Logger, Configer):
     def __init__(self, conf_path, log_path):
         Configer.__init__(self, conf_path)
-        Requester.__init__(self)
+        Requester.__init__(self, self.config.get('hosts'), self.config.get('ports'))
         Logger.__init__(self, self.config.get('service'), log_path)
         self.curr_date = datetime.now().strftime('%Y-%m-%d')
         self.map = ""
@@ -52,7 +52,7 @@ class EarningsService(Requester, Logger, Configer):
                         break
                 except():
                     print("error in request")
-            self.processing_dataframe(new_idi, new_erns, new_dls, curr_data)
+            self.processing_dataframe(new_idi, new_erns, new_dls, curr_data, category_name)
             # self.to_logger("error in request")
 
     @staticmethod
@@ -64,22 +64,32 @@ class EarningsService(Requester, Logger, Configer):
         list_downloads = df[df.columns[3]].tolist()  # Downloads
         return list_id, list_ernings, list_downloads
 
-    def processing_dataframe(self, list_idi, list_erns, list_dls, curr_data):
+    def processing_dataframe(self, list_idi, list_erns, list_dls, curr_data, category):
         data_to_redis = {}
         for idi, erns, dls in zip(list_idi, list_erns, list_dls):
             if idi not in curr_data:
-                self.post_to_slack(idi, dls, erns)
-                self.post_to_psql(idi, dls, erns)
+                self.map = json.loads(self.get_response(self.map_url).content)
+                country, city = self.get_location(idi)
+                self.post_to_api(idi, dls, erns, country, city, category)
             else:
                 curr_dls = curr_data.get(idi).get('downloads')
                 if dls != curr_dls:
                     curr_erns = curr_data.get(idi).get('earnings')
                     new_dls = dls - curr_dls
                     new_erns = erns - curr_erns
-                    self.post_to_slack(idi, new_dls, new_erns)
-                    self.post_to_psql(idi, dls, erns)
-
+                    self.map = json.loads(self.get_response(self.map_url).content)
+                    country, city = self.get_location(idi)
+                    self.post_to_api(idi, new_dls, new_erns, country, city, category)
             data_to_redis[idi] = {"downloads": dls, "earnings": erns}
         self.post_to_redis(data_to_redis)
 
-
+    def get_location(self, idi):
+        for location in self.map:
+            media_id = location.get('media_id')
+            if str(media_id) == idi:
+                country = location.get('country')
+                city = location.get('city')
+                if country is None and city is not None:
+                    country = city
+                return country, city
+        return None, None

@@ -9,3 +9,13 @@ categories:
   on_demand: onDemand
   enhanced: enhanced
   single_image_and_other: single&other
+
+hosts:
+  api-server: api
+  slack-service: slack
+  earnings-sheduler: earnings
+
+ports:
+  api-server: 8001
+  slack-service: 8005
+  earnings-sheduler: 8003

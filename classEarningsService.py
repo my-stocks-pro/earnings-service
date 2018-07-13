@@ -45,7 +45,7 @@ class EarningsService(Requester, Logger, Configer):
                         list_id, list_ernings, list_downloads = self.get_new_data(df, category_name)
                         new_idi = list(itertools.chain(new_idi, list_id))
                         new_erns = list(itertools.chain(new_erns, list_ernings))
-                        new_dls = list(itertools.chain(new_dls, list_ernings))
+                        new_dls = list(itertools.chain(new_dls, list_downloads))
                     except ValueError:
                         # self.to_logger(ValueError)
                         print(ValueError)
@@ -81,8 +81,5 @@ class EarningsService(Requester, Logger, Configer):
 
             data_to_redis[idi] = {"downloads": dls, "earnings": erns}
         self.post_to_redis(data_to_redis)
-
-    def post_to_redis(self, data):
-        pass
 
 

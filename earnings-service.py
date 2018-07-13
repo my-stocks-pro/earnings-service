@@ -13,20 +13,20 @@ def test():
                                "on_demand": {"44444": 1, "55555": 1, "66666": 1},
                                "enhanced": {"77777": 1, "88888": 1, "99999": 1},
                                "single_image_and_other": {"12345": 1, "5678": 1, "90123": 1}}
-    # earnings.get()
+    earnings.get()
 
-    ls = []
-
-    lst1 = ["999", "222", "333"]
-
-    ls = list(itertools.chain(ls, lst1))
-    print(ls)
-
-    lst2 = ["444", "555", "666"]
-
-    ls = list(itertools.chain(ls, lst2))
-
-    print(ls)
+    # ls = []
+    #
+    # lst1 = ["999", "222", "333"]
+    #
+    # ls = list(itertools.chain(ls, lst1))
+    # print(ls)
+    #
+    # lst2 = ["444", "555", "666"]
+    #
+    # ls = list(itertools.chain(ls, lst2))
+    #
+    # print(ls)
 
 
 @app.route("/history/earnings", methods=['GET'])

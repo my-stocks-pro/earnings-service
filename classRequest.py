@@ -55,7 +55,10 @@ class Requester:
         requests.post(url, data=body)
 
     def post_to_slack(self, idi, new_dls, new_erns):
-        pass
+        print(idi, new_dls, new_erns)
 
     def post_to_psql(self, idi, new_dls, new_erns):
         pass
+
+    def post_to_redis(self, data):
+        print(data)

@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="46aa259e-cf07-466d-a3eb-39ab06a9d956" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classEarningsService.py" afterPath="$PROJECT_DIR$/classEarningsService.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classRequest.py" afterPath="$PROJECT_DIR$/classRequest.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.yaml" afterPath="$PROJECT_DIR$/config.yaml" />
-    </list>
+    <list default="true" id="46aa259e-cf07-466d-a3eb-39ab06a9d956" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,10 +28,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="earnings-service.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="earnings-service.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/earnings-service.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
+            <state relative-caret-position="112">
               <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
               <folding>
                 <element signature="e#0#56#0" expanded="true" />
@@ -47,8 +43,8 @@
       <file leaf-file-name="classEarningsService.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classEarningsService.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="532">
-              <caret line="81" column="77" lean-forward="false" selection-start-line="81" selection-start-column="77" selection-end-line="81" selection-end-column="77" />
+            <state relative-caret-position="277">
+              <caret line="79" column="82" lean-forward="false" selection-start-line="79" selection-start-column="82" selection-end-line="79" selection-end-column="82" />
               <folding>
                 <element signature="e#0#34#0" expanded="true" />
               </folding>
@@ -68,7 +64,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="classRequest.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="classRequest.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classRequest.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="142">
@@ -509,12 +505,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/earnings-service.py">
+    <entry file="file://$PROJECT_DIR$/config.yaml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+        <state relative-caret-position="285">
+          <caret line="19" column="15" lean-forward="false" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classRequest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="142">
+          <caret line="54" column="19" lean-forward="false" selection-start-line="54" selection-start-column="8" selection-end-line="54" selection-end-column="19" />
           <folding>
-            <element signature="e#0#56#0" expanded="true" />
+            <element signature="e#0#37#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -529,30 +533,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="15" lean-forward="false" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/classEarningsService.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="81" column="77" lean-forward="false" selection-start-line="81" selection-start-column="77" selection-end-line="81" selection-end-column="77" />
+        <state relative-caret-position="277">
+          <caret line="79" column="82" lean-forward="false" selection-start-line="79" selection-start-column="82" selection-end-line="79" selection-end-column="82" />
           <folding>
             <element signature="e#0#34#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classRequest.py">
+    <entry file="file://$PROJECT_DIR$/earnings-service.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="54" column="19" lean-forward="false" selection-start-line="54" selection-start-column="8" selection-end-line="54" selection-end-column="19" />
+        <state relative-caret-position="112">
+          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
           <folding>
-            <element signature="e#0#37#0" expanded="true" />
+            <element signature="e#0#56#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -11,12 +11,12 @@ class NetworkError(RuntimeError):
 
 
 class Requester:
-    def __init__(self, hosts, ports):
+    def __init__(self, gateway):
         self.prod = os.getenv("PROD")
-        self.hosts = hosts
-        self.ports = ports
-        self.host = "127.0.0.1"
-        self.cookies = {"session": "s%3ACH2H5DdpB6MzmSsDieZE7UvVMQPehBCt.1z%2B36%2FhnbFqxO7XKSXFCg1VuMhuFT%2B47W4%2B05gVV67k"}
+        self.gateway = gateway
+        self.redisDB = "earnings"
+        self.cookies = {
+            "session": "s%3ACH2H5DdpB6MzmSsDieZE7UvVMQPehBCt.1z%2B36%2FhnbFqxO7XKSXFCg1VuMhuFT%2B47W4%2B05gVV67k"}
         print("LOGIN to Shutterstock...")
 
     def retryer(max_retries=10, timeout=5):
@@ -49,10 +49,7 @@ class Requester:
     def get_data_frame(self, url):
         return self.get_response(self, url).text.split("\n")
 
-    def get_request(self):
-        pass
-
-    def post_to_api(self, idi, download, earnings, country, city, category):
+    def post_slack(self, idi, download, earnings, country, city, category):
         data = {"idi": idi,
                 "download": download,
                 "earnings": earnings,
@@ -60,20 +57,21 @@ class Requester:
                 "country": country,
                 "city": city}
         body = json.dumps(data)
+        requests.post(f"{self.gateway}/slack", data=body)
 
-        if self.prod == 1:
-            self.host = self.hosts.get('api-server')
-        url = "http://{}:{}/data/psql/earnings".format(self.host, self.ports.get('api-server'))
-        requests.post(url, data=body)
+    def redis_get(self, key):
+        data = json.dumps({"db": self.redisDB, "key": key, "val": None})
+        r = requests.get(f"{self.gateway}/redis", data=data)
+        res = r.json()
+        return res
 
-        if self.prod == 1:
-            self.host = self.hosts.get('slack-service')
-        url = "http://{}:{}/data/earnings".format(self.host, self.ports.get('slack-service'))
-        requests.post(url, data=body)
+    def redis_set(self, key, val):
+        msg = {"key": key, "db": "earnings", "val": val}
+        requests.post(f"{self.gateway}/redis", data=json.dumps(msg))
 
-    def post_to_redis(self, data):
-        body = json.dumps(data)
-        if self.prod == 1:
-            self.host = self.hosts.get('api')
-        url = "http://{}:{}/data/redis/earnings".format(self.host, self.ports.get('api'))
-        requests.post(url, data=body)
+    def redis_del(self):
+        msg = {"db": self.redisDB, "key": None, "val": None}
+        requests.delete(f"{self.gateway}/redis", data=json.dumps(msg))
+
+    def postgres_save(self):
+        pass

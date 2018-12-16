@@ -1,0 +1,7 @@
+2018-12-15 13:21:15,181 - werkzeug - INFO -  * Running on http://127.0.0.1:9002/ (Press CTRL+C to quit)
+2018-12-15 13:21:27,602 - werkzeug - INFO - 127.0.0.1 - - [15/Dec/2018 13:21:27] "GET /version HTTP/1.1" 200 -
+2018-12-15 13:25:32,390 - werkzeug - INFO -  * Running on http://127.0.0.1:9002/ (Press CTRL+C to quit)
+2018-12-15 13:25:35,293 - werkzeug - INFO - 127.0.0.1 - - [15/Dec/2018 13:25:35] "GET /health HTTP/1.1" 200 -
+2018-12-15 13:25:39,309 - werkzeug - INFO - 127.0.0.1 - - [15/Dec/2018 13:25:39] "GET /version HTTP/1.1" 200 -
+2018-12-15 13:25:58,917 - werkzeug - INFO -  * Running on http://127.0.0.1:9002/ (Press CTRL+C to quit)
+2018-12-15 13:26:09,235 - werkzeug - INFO - 127.0.0.1 - - [15/Dec/2018 13:26:09] "GET / HTTP/1.1" 200 -
